@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: content: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <script src="cordova.js"></script>
+    <script src="components/loader.js"></script>
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator-card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 320px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        input[type="button"] {
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        #btnSomar { background-color: #4CAF50; }
+        #btnSomar:hover { background-color: #45a049; }
+
+        #btnSubtrair { background-color: #ff9800; }
+        #btnSubtrair:hover { background-color: #e68900; }
+
+        #btnMultiplicar { background-color: #2196F3; }
+        #btnMultiplicar:hover { background-color: #0b7dda; }
+
+        #btnDividir { background-color: #9c27b0; }
+        #btnDividir:hover { background-color: #7b1fa2; }
+
+        #exibirResultado {
+            margin-top: 25px;
+            font-size: 1.8rem;
+            color: #2c3e50;
+            background: #eef2f3;
+            padding: 10px;
+            border-radius: 6px;
+        }
+    </style>
+
+    <script>
+        function calcular(operacao) {
+            let numero01 = Number(document.getElementById('inputNumero01').value);
+            let numero02 = Number(document.getElementById('inputNumero02').value);
+            let resultado;
+
+            switch (operacao) {
+                case 'somar':
+                    resultado = numero01 + numero02;
+                    break;
+                case 'subtrair':
+                    resultado = numero01 - numero02;
+                    break;
+                case 'multiplicar':
+                    resultado = numero01 * numero02;
+                    break;
+                case 'dividir':
+                    if (numero02 === 0) {
+                        resultado = "Erro: Divisão por 0";
+                    } else {
+                        resultado = numero01 / numero02;
+                    }
+                    break;
+            }
+
+            document.getElementById('exibirResultado').innerHTML = resultado;
+        }
+    </script>
+</head>
+<body>
+
+    <div class="calculator-card">
+        <h2>Calculadora Simples</h2>
+        <input type="number" id="inputNumero01" placeholder="Primeiro número">
+        <input type="number" id="inputNumero02" placeholder="Segundo número">
+        
+        <div class="button-group">
+            <input type="button" id="btnSomar" value="+" onclick="calcular('somar')">
+            <input type="button" id="btnSubtrair" value="-" onclick="calcular('subtrair')">
+            <input type="button" id="btnMultiplicar" value="×" onclick="calcular('multiplicar')">
+            <input type="button" id="btnDividir" value="÷" onclick="calcular('dividir')">
+        </div>
+
+        <h2 id="exibirResultado">0</h2>
+    </div>
+
+</body>
+</html>
